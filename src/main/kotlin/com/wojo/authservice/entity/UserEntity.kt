@@ -1,5 +1,6 @@
 package com.wojo.authservice.entity
 
+import com.wojo.authservice.model.UserStatus
 import org.springframework.security.core.GrantedAuthority
 import java.time.LocalDateTime
 import java.util.*
@@ -25,7 +26,7 @@ data class UserEntity(
         val password: String = "",
 
         @Column(nullable = false)
-        val isActive: Boolean = false,
+        val userStatus: UserStatus = UserStatus.CREATED,
 
         @Column(nullable = false, updatable = false)
         val nickname: String = "",
@@ -43,7 +44,7 @@ data class UserEntity(
             code = builder.code,
             email = builder.email,
             password = builder.password,
-            isActive = builder.isActive,
+            userStatus = builder.userStatus,
             nickname = builder.nickname,
             createTime = builder.createTime
     )
@@ -57,7 +58,7 @@ data class UserEntity(
         var code: Long = 0
         var email: String = ""
         var password: String = ""
-        var isActive: Boolean = false
+        var userStatus: UserStatus = UserStatus.CREATED
         var nickname: String = ""
         var createTime: LocalDateTime = LocalDateTime.MIN
 
