@@ -1,9 +1,11 @@
 spring:
+  main:
+    allow-bean-definition-overriding: true
   application:
     name: Auth-Service
 
   datasource:
-    driverClassName: com.mysql.jdbc.Driver
+    driverClassName: com.mysql.cj.jdbc.Driver
     url: "jdbc:mysql://sql7.freesqldatabase.com:3306/sql7284585"
     username: "sql7284585"
     password: "dyUIuNYFaW"
