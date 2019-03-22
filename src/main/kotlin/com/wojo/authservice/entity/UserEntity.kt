@@ -4,22 +4,20 @@ import com.wojo.authservice.model.UserStatus
 import org.springframework.security.core.GrantedAuthority
 import java.time.LocalDateTime
 import java.util.*
-import javax.persistence.Column
-import javax.persistence.Entity
-import javax.persistence.GeneratedValue
-import javax.persistence.Id
+import javax.persistence.*
 
 @Entity
+@Table(name = "user")
 data class UserEntity(
 
         @Id
         @GeneratedValue
         val id: Long = 0,
 
-        @Column(nullable = false, updatable = false)
+        @Column(nullable = false, updatable = false, unique = true)
         val code: Long = 0,
 
-        @Column(nullable = false, updatable = false)
+        @Column(nullable = false, updatable = false, unique = true)
         val email: String = "",
 
         @Column(nullable = false, updatable = false)
@@ -28,7 +26,7 @@ data class UserEntity(
         @Column(nullable = false)
         val userStatus: UserStatus = UserStatus.CREATED,
 
-        @Column(nullable = false, updatable = false)
+        @Column(nullable = false, updatable = false, unique = true)
         val nickname: String = "",
 
         @Column(nullable = false, updatable = false)
