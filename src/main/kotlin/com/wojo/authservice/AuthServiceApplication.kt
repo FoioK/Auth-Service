@@ -6,8 +6,12 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 
 @SpringBootApplication
 @EnableAuthorizationServer
-class AuthServiceApplication
+class AuthServiceApplication {
 
-fun main(args: Array<String>) {
-	runApplication<AuthServiceApplication>(*args)
+    companion object {
+        @JvmStatic
+        fun main(args: Array<String>) {
+            runApplication<AuthServiceApplication>(*args)
+        }
+    }
 }
