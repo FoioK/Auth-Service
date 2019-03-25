@@ -19,7 +19,7 @@ spring:
     max-wait: 800
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
 
 config:
   oauth2:
