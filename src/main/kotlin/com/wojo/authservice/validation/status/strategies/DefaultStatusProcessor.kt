@@ -11,7 +11,7 @@ class DefaultStatusProcessor : UserStatusStrategy {
 
     override fun getStrategyName(): String = UserStatus.DEFAULT.name
 
-    override fun checkStatus(user: UserEntity): Optional<UserEntity> {
+    override fun validateStatus(user: UserEntity): Optional<UserEntity> {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 

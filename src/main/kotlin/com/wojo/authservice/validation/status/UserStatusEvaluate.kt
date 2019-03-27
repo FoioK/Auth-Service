@@ -13,7 +13,7 @@ class UserStatusEvaluate @Autowired constructor(
 ) {
 
     fun evaluateStatus(user: UserEntity): UserEntity =
-            getStrategy(user.userStatus).checkStatus(user)
+            getStrategy(user.userStatus).validateStatus(user)
                     .orElseThrow {
                         UserAccountNotFoundException("Error occurred when server validate user status")
                     }
