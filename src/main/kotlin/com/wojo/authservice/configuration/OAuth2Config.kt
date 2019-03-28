@@ -1,5 +1,6 @@
 package com.wojo.authservice.configuration
 
+import com.wojo.authservice.exception.CustomOAuthException
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.beans.factory.annotation.Value
@@ -55,6 +56,22 @@ constructor(
         endpoints.authenticationManager(authenticationManager)
                 .tokenStore(tokenStore())
                 .accessTokenConverter(tokenEnhancer())
+                .exceptionTranslator { exception ->
+                    if (exception.cause is CustomOAuthException) {
+//                        ResponseEntity
+//                                .status(400)
+//                                .body(CustomOAuthException(exception.message))
+
+                    }
+
+                    throw exception
+//                    if (exception is OAuth2Exception) {
+//                        ResponseEntity.status(exception.httpErrorCode)
+//                                .body(UserAccountNotFoundException(exception.message?:"mesage", "codeX"))
+//                    } else {
+//                        throw exception
+//                    }
+                }
     }
 
     @Bean
