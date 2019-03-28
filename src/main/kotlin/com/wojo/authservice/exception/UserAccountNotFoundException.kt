@@ -4,5 +4,5 @@ import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.ResponseStatus
 
 @ResponseStatus(HttpStatus.NOT_FOUND)
-class UserAccountNotFoundException(message: String, codeX: String) :
+class UserAccountNotFoundException(message: String) :
         CustomOAuthException(message, ErrorCode.NOT_FOUND)

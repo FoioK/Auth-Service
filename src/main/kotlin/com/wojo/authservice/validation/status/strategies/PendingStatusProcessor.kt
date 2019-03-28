@@ -13,7 +13,7 @@ class PendingStatusProcessor : UserStatusStrategy {
     override fun getStrategyName() = UserStatus.PENDING.name
 
     override fun validateStatus(user: UserEntity): Optional<UserEntity> {
-        throw UserAccountNotActivatedYetException("Not activated yet", "UNAUTHORIZED")
+        throw UserAccountNotActivatedYetException("Not activated yet")
     }
 
 }

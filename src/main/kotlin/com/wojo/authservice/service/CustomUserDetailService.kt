@@ -1,6 +1,7 @@
 package com.wojo.authservice.service
 
 import com.wojo.authservice.entity.UserEntity
+import com.wojo.authservice.exception.UserAccountNotFoundException
 import com.wojo.authservice.model.CustomUserDetail
 import com.wojo.authservice.repository.UserRepository
 import com.wojo.authservice.validation.status.UserStatusEvaluate
@@ -11,7 +12,6 @@ import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.stereotype.Service
 import java.util.stream.Collectors
-import javax.persistence.EntityNotFoundException
 
 @Service
 class CustomUserDetailService @Autowired constructor(
@@ -23,7 +23,7 @@ class CustomUserDetailService @Autowired constructor(
         val users: List<UserEntity> = userRepository.findByEmailOrNickname(username, username)
 
         if (users.isEmpty()) {
-            throw EntityNotFoundException("User not found")
+            throw UserAccountNotFoundException("User not found")
         }
         val user: UserEntity = userStatusEvaluate.evaluateStatus(users[0])
         val permissions: Collection<GrantedAuthority> =
