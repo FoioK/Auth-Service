@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository
 @Repository
 interface UserRepository : PermissionRepository, JpaRepository<UserEntity, Long> {
 
-    fun findByEmailOrNickname(email: String, nickname: String): List<UserEntity>
+    fun findByEmailOrNickname(email: String, nickname: String): Set<UserEntity>
 
 }
