@@ -25,7 +25,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - User status strategies
 - private and public key
 
-## Fixed
+### Fixed
 - H2 console
 
 ## [1.0.0] - 25.03.2019
