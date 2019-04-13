@@ -1,11 +1,13 @@
 package com.wojo.authservice.configuration
 
+import com.wojo.authservice.exception.CustomOAuthException
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.ComponentScan
 import org.springframework.context.annotation.Configuration
+import org.springframework.http.ResponseEntity
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer
@@ -55,6 +57,16 @@ constructor(
         endpoints.authenticationManager(authenticationManager)
                 .tokenStore(tokenStore())
                 .accessTokenConverter(tokenEnhancer())
+                .exceptionTranslator { exception ->
+                    if (exception.cause is CustomOAuthException) {
+                        val customException: CustomOAuthException = exception.cause as CustomOAuthException
+                        ResponseEntity
+                                .status(customException.status)
+                                .body(customException)
+                    } else {
+                        throw exception
+                    }
+                }
     }
 
     @Bean

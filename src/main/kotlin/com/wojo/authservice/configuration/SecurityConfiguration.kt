@@ -1,6 +1,6 @@
 package com.wojo.authservice.configuration
 
-import com.wojo.authservice.service.CustomUserDetailService
+import com.wojo.authservice.service.impl.CustomUserDetailService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -30,11 +30,15 @@ constructor(private val customUserDetailService: CustomUserDetailService) : WebS
     @Throws(Exception::class)
     override fun configure(http: HttpSecurity) {
         http.authorizeRequests()
+                .antMatchers("/h2-console/**").permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.NEVER)
+
+        http.csrf().disable()
+        http.headers().frameOptions().disable()
     }
 
     @Bean

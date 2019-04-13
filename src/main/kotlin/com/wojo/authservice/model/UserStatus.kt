@@ -1,6 +1,6 @@
 package com.wojo.authservice.model
 
-enum class UserStatus(val numer: Int = 0) {
+enum class UserStatus(val code: Int = 0) {
 
     DEFAULT(0),
     CREATED(1),

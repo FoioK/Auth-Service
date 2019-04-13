@@ -14,10 +14,10 @@ data class UserEntity(
         @GeneratedValue
         val id: Long = 0,
 
-        @Column(nullable = false, updatable = false, unique = true)
+        @Column(nullable = false, updatable = false)
         val code: Long = 0,
 
-        @Column(nullable = false, updatable = false, unique = true)
+        @Column(nullable = false, updatable = false)
         val email: String = "",
 
         @Column(nullable = false, updatable = false)
@@ -26,7 +26,7 @@ data class UserEntity(
         @Column(nullable = false)
         val userStatus: UserStatus = UserStatus.DEFAULT,
 
-        @Column(nullable = false, updatable = false, unique = true)
+        @Column(nullable = false, updatable = false)
         val nickname: String = "",
 
         @Column(nullable = false, updatable = false)
