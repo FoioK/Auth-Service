@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.ComponentScan
 import org.springframework.context.annotation.Configuration
+import org.springframework.http.ResponseEntity
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer
@@ -58,19 +59,13 @@ constructor(
                 .accessTokenConverter(tokenEnhancer())
                 .exceptionTranslator { exception ->
                     if (exception.cause is CustomOAuthException) {
-//                        ResponseEntity
-//                                .status(400)
-//                                .body(CustomOAuthException(exception.message))
-
+                        val customException: CustomOAuthException = exception.cause as CustomOAuthException
+                        ResponseEntity
+                                .status(customException.status)
+                                .body(customException)
+                    } else {
+                        throw exception
                     }
-
-                    throw exception
-//                    if (exception is OAuth2Exception) {
-//                        ResponseEntity.status(exception.httpErrorCode)
-//                                .body(UserAccountNotFoundException(exception.message?:"mesage", "codeX"))
-//                    } else {
-//                        throw exception
-//                    }
                 }
     }
 
