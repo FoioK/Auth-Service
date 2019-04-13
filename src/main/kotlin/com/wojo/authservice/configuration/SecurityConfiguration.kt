@@ -1,6 +1,6 @@
 package com.wojo.authservice.configuration
 
-import com.wojo.authservice.service.CustomUserDetailService
+import com.wojo.authservice.service.impl.CustomUserDetailService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration

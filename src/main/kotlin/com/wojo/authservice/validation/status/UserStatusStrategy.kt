@@ -7,6 +7,6 @@ interface UserStatusStrategy {
 
     fun getStrategyName(): String
 
-    fun validateStatus(user: UserEntity) : Optional<UserEntity>
+    fun validateStatus(user: UserEntity): Optional<UserEntity>
 
 }
