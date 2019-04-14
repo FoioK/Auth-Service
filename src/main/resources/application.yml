@@ -5,14 +5,18 @@ spring:
     name: Auth-Service
 
   datasource:
-    driverClassName: org.h2.Driver
-    url: jdbc:h2:mem:foio_auth_service
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://db4free.net:3306/foio_auth_db?useSSL=false
     username: foio_auth_user
-    password: G$47swz:QbQ%{X`^
-  h2:
-    console:
-      enabled: true
-      path: /h2-console
+    password: dyUIuNYFaW
+    testOnBorrow: true
+    testWhileIdle: true
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 30000
+    validationQuery: SELECT 1
+    max-active: 15
+    max-idle: 10
+    max-wait: 800
   jpa:
     hibernate:
       ddl-auto: none
