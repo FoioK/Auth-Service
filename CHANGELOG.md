@@ -6,6 +6,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.2.0]
+### Added
+- Flyway scripts
+- Changelog
+- Local mysql datasource
+
+### Changed
+- Kotlin version to 1.3.30
+- Profile h2 to dev
+- Database hosting
+
+### Fixed
+- App build
+
 ## [1.1.0] - 13.04.2019
 ### Added
 - OAuth exception translator
@@ -47,6 +61,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Cors filter
 - Security configuration
 
-[Unreleased]: https://github.com/FoioK/Auth-Service/compare/release/1.1.0...HEAD
+[Unreleased]: https://github.com/FoioK/Auth-Service/compare/release/1.2.0...HEAD
+[1.2.0]: https://github.com/FoioK/Auth-Service/compare/release/1.1.0...release/1.2.0
 [1.1.0]: https://github.com/FoioK/Auth-Service/compare/release/1.0.0...release/1.1.0
 [1.0.0]: https://github.com/FoioK/Auth-Service/releases/tag/1.0.0
