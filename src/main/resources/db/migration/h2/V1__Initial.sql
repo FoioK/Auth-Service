@@ -1,0 +1,49 @@
+CREATE TABLE IF NOT EXISTS HIBERNATE_SEQUENCE
+(
+    NEXT_VAL bigint NULL
+);
+
+CREATE TABLE IF NOT EXISTS PERMISSION
+(
+    ID   bigint       NOT NULL,
+    NAME varchar(255) NOT NULL,
+    PRIMARY KEY (ID)
+);
+
+CREATE TABLE IF NOT EXISTS ROLE
+(
+    ID   bigint       NOT NULL,
+    NAME varchar(255) NOT NULL,
+    PRIMARY KEY (ID)
+);
+
+CREATE TABLE IF NOT EXISTS ROLE_PERMISSION
+(
+    ID            bigint NOT NULL,
+    PERMISSION_ID bigint NULL,
+    ROLE_ID       bigint NULL,
+    PRIMARY KEY (ID)
+);
+CREATE INDEX R_P_I_R_I ON ROLE_PERMISSION (ROLE_ID);
+CREATE INDEX R_P_I_P_I ON ROLE_PERMISSION (PERMISSION_ID);
+
+CREATE TABLE IF NOT EXISTS USER
+(
+    ID          bigint       NOT NULL,
+    CODE        bigint       NOT NULL,
+    CREATE_TIME timestamp    NOT NULL,
+    EMAIL       varchar(255) NOT NULL,
+    NICKNAME    varchar(255) NOT NULL,
+    PASSWORD    varchar(255) NOT NULL,
+    USER_STATUS int          NOT NULL,
+    PRIMARY KEY (ID)
+);
+
+CREATE TABLE IF NOT EXISTS USER_ROLE
+(
+    ID        bigint NOT NULL,
+    USER_CODE bigint NOT NULL,
+    ROLE_ID   bigint NULL,
+    PRIMARY KEY (ID)
+);
+CREATE INDEX U_R_I_R_I ON USER_ROLE (ROLE_ID);

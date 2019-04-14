@@ -20,6 +20,14 @@ spring:
   jpa:
     hibernate:
       ddl-auto: none
+  flyway:
+    url: jdbc:mysql://db4free.net:3306/foio_auth_db?useSSL=false
+    schemas: foio_auth_db
+    user: foio_auth_user
+    password: dyUIuNYFaW
+    locations: classpath:db/migration/mysql
+    validate-on-migrate: true
+    enabled: false
 
 config:
   oauth2:

@@ -12,3 +12,11 @@ spring:
   jpa:
     hibernate:
       ddl-auto: create-drop
+  flyway:
+    url: jdbc:h2:mem:authH2
+    schemas: authH2
+    user: sa
+    password:
+    locations: classpath:db/migration/h2
+    validate-on-migrate: true
+    enabled: false
