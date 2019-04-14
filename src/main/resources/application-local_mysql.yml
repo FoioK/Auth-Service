@@ -1,0 +1,17 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/test_auth?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+    username: auth_test
+    password: auth_test
+  jpa:
+    hibernate:
+      ddl-auto: none
+  flyway:
+    url: jdbc:mysql://127.0.0.1:3306/test_auth?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+    schemas: test_auth
+    user: auth_test
+    password: auth_test
+    locations: classpath:db/migration/mysql
+    validate-on-migrate: true
+    enabled: false
