@@ -6,9 +6,9 @@ spring:
 
   datasource:
     driverClassName: com.mysql.cj.jdbc.Driver
-    url: "jdbc:mysql://sql7.freesqldatabase.com:3306/sql7284585"
-    username: "sql7284585"
-    password: "dyUIuNYFaW"
+    url: jdbc:mysql://db4free.net:3306/foio_auth_db?useSSL=false
+    username: foio_auth_user
+    password: dyUIuNYFaW
     testOnBorrow: true
     testWhileIdle: true
     timeBetweenEvictionRunsMillis: 60000
@@ -19,7 +19,15 @@ spring:
     max-wait: 800
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
+  flyway:
+    url: jdbc:mysql://db4free.net:3306/foio_auth_db?useSSL=false
+    schemas: foio_auth_db
+    user: foio_auth_user
+    password: dyUIuNYFaW
+    locations: classpath:db/migration/mysql
+    validate-on-migrate: true
+    enabled: false
 
 config:
   oauth2:
