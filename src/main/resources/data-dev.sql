@@ -13,7 +13,7 @@ VALUES (1, 1, 1);
 INSERT INTO role_permission(id, permission_id, role_id)
 VALUES (2, 2, 1);
 INSERT INTO role_permission(id, permission_id, role_id)
-VALUES (3, 1, 2);
+VALUES (3, 2, 2);
 
 INSERT INTO user(id, code, create_time, email, nickname, password, user_status)
 VALUES (1, 1, '2019-03-25T18:48:01.05', 'admin@mail.com', 'admin',
