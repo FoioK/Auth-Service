@@ -2,8 +2,10 @@ package com.wojo.authservice.service.impl
 
 import com.wojo.authservice.entity.UserEntity
 import com.wojo.authservice.model.CustomUserDetail
+import com.wojo.authservice.model.UserInput
 import com.wojo.authservice.repository.UserRepository
 import com.wojo.authservice.service.spec.PermissionService
+import com.wojo.authservice.service.spec.UserService
 import com.wojo.authservice.validation.status.UserStatusEvaluate
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.core.userdetails.UserDetails
@@ -15,7 +17,7 @@ class CustomUserDetailService @Autowired constructor(
         private val userRepository: UserRepository,
         private val userStatusEvaluate: UserStatusEvaluate,
         private val permissionService: PermissionService
-) : UserDetailsService {
+) : UserDetailsService, UserService {
 
     override fun loadUserByUsername(username: String): UserDetails {
         val users: Set<UserEntity> = userRepository.findByEmailOrNickname(username, username)
@@ -23,6 +25,10 @@ class CustomUserDetailService @Autowired constructor(
         user.grantedAuthorityList = permissionService.getPermissionsByUserCode(user.code)
 
         return CustomUserDetail(user)
+    }
+
+    override fun createUser(userInput: UserInput): Long {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
 }
