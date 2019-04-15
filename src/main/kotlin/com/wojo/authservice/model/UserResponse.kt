@@ -1,6 +1,6 @@
 package com.wojo.authservice.model
 
-data class UserDetails(
+data class UserResponse(
 
         val id: Long,
         val code: Long,
@@ -26,6 +26,6 @@ data class UserDetails(
         var email: String = ""
         var nickName: String = ""
 
-        fun build() = UserDetails(this)
+        fun build() = UserResponse(this)
     }
 }
