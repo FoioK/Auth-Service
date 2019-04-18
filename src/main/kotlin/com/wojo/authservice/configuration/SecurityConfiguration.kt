@@ -1,6 +1,7 @@
 package com.wojo.authservice.configuration
 
 import com.wojo.authservice.security.JwtFilter
+import com.wojo.authservice.security.JwtTokenProvider
 import com.wojo.authservice.service.impl.CustomUserDetailService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Bean
@@ -19,8 +20,10 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-class SecurityConfiguration @Autowired
-constructor(private val customUserDetailService: CustomUserDetailService) : WebSecurityConfigurerAdapter() {
+class SecurityConfiguration @Autowired constructor(
+        private val customUserDetailService: CustomUserDetailService,
+        private val jwtTokenProvider: JwtTokenProvider
+) : WebSecurityConfigurerAdapter() {
 
     @Autowired
     @Throws(Exception::class)
@@ -60,6 +63,6 @@ constructor(private val customUserDetailService: CustomUserDetailService) : WebS
 
     @Bean
     fun authenticationTokenFilter(): JwtFilter {
-        return JwtFilter()
+        return JwtFilter(jwtTokenProvider)
     }
 }
