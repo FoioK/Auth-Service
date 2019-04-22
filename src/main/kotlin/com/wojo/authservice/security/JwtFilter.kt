@@ -23,8 +23,7 @@ class JwtFilter(
 
         if (SecurityContextHolder.getContext().authentication == null) {
             this.jwtTokenProvider.validateToken(token, request)
-            SecurityContextHolder.getContext().authentication =
-                    this.jwtTokenProvider.authorizeToken(token)
+            SecurityContextHolder.getContext().authentication = this.jwtTokenProvider.getPrincipal(token)
         }
 
         chain.doFilter(request, response)
