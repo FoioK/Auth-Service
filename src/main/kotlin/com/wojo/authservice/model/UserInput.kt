@@ -5,15 +5,15 @@ import javax.validation.constraints.NotBlank
 
 data class UserInput(
 
-        @NotBlank
-        @Email
-        val email: String,
+        @field:NotBlank
+        @field:Email
+        val email: String = "",
 
-        @NotBlank
-        val password: String,
+        @field:NotBlank
+        val password: String = "",
 
-        @NotBlank
-        val nickName: String
+        @field:NotBlank
+        val nickName: String = ""
 ) {
 
     private constructor(builder: Builder) : this(
