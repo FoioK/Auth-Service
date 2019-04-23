@@ -48,7 +48,7 @@ data class UserEntity(
     )
 
     companion object {
-        inline fun build(block: Permission.Builder.() -> Unit) = Permission.Builder().apply(block).build()
+        inline fun build(block: Builder.() -> Unit) = Builder().apply(block).build()
     }
 
     class Builder {
