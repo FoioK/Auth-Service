@@ -55,7 +55,7 @@ class CustomUserDetailService @Autowired constructor(
 
     private val mapEntityToResponse: (UserEntity) -> UserResponse = { user ->
         UserResponse.build {
-            id = user.id!! // TODO broken window
+            id = user.id
             code = user.code
             email = user.email
             nickName = user.nickname
