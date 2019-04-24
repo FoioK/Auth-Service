@@ -1,6 +1,8 @@
 package com.wojo.authservice.service.impl
 
 import com.wojo.authservice.entity.UserEntity
+import com.wojo.authservice.exception.impl.DuplicateEmailException
+import com.wojo.authservice.exception.impl.DuplicateNicknameException
 import com.wojo.authservice.model.CustomUserDetail
 import com.wojo.authservice.model.UserInput
 import com.wojo.authservice.model.UserResponse
@@ -31,11 +33,24 @@ class CustomUserDetailService @Autowired constructor(
     }
 
     override fun createUser(userInput: UserInput): UserResponse {
-        // TODO duplicate check
+        checkDuplicates(userInput)
         val user: UserEntity = mapInputToEntity(userInput)
         val savedUser: UserEntity = userRepository.save(user)
 
         return mapEntityToResponse(savedUser)
+    }
+
+    private fun checkDuplicates(userInput: UserInput) {
+        val isEmailDuplicate: Boolean = userRepository.findByEmail(userInput.email).isPresent
+        val isNicknameDuplicate: Boolean = userRepository.findByNickname(userInput.nickName).isPresent
+
+        if (isEmailDuplicate) {
+            throw DuplicateEmailException("Email already exist")
+        }
+
+        if (isNicknameDuplicate) {
+            throw DuplicateNicknameException("Nickname already exist")
+        }
     }
 
     private val mapInputToEntity: (UserInput) -> UserEntity = { userInput ->
