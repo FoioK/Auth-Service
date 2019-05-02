@@ -9,8 +9,8 @@ data class UserRole(
         @GeneratedValue
         val id: Long = 0,
 
-        @Column(nullable = false)
-        val userCode: Long = 0,
+        @Column(nullable = false, length = 40)
+        val userCode: String = "",
 
         @ManyToOne
         val role: Role = Role()
@@ -29,7 +29,7 @@ data class UserRole(
 
     class Builder {
         var id: Long = 0
-        var userCode: Long = 0
+        var userCode: String = ""
         var role: Role = Role()
 
         fun build() = UserRole(this)

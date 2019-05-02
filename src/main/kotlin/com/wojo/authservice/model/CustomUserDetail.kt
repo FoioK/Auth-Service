@@ -7,7 +7,7 @@ import java.time.LocalDateTime
 class CustomUserDetail(user: UserEntity) :
         User(user.email, user.password, user.grantedAuthorityList) {
 
-    val code: Long = user.code
+    val code: String = user.code
     val nickname: String = user.nickname
     val createTime: LocalDateTime = user.createTime
 

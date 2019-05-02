@@ -14,8 +14,8 @@ data class UserEntity(
         @GeneratedValue
         val id: Long = 0,
 
-        @Column(nullable = false, updatable = false)
-        val code: Long = 0,
+        @Column(nullable = false, updatable = false, length = 40)
+        val code: String = "",
 
         @Column(nullable = false, updatable = false)
         val email: String = "",
@@ -53,7 +53,7 @@ data class UserEntity(
 
     class Builder {
         var id: Long = 0
-        var code: Long = 0
+        var code: String = ""
         var email: String = ""
         var password: String = ""
         var userStatus: UserStatus = UserStatus.DEFAULT

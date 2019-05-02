@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository
 interface PermissionRepository {
 
     @Query(value = getPermissionQuery, nativeQuery = true)
-    fun getPermissions(@Param("userCode") userCode: Long): List<String>
+    fun getPermissions(@Param("userCode") userCode: String): List<String>
 
     companion object {
 

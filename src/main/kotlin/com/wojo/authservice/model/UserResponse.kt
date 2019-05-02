@@ -3,7 +3,7 @@ package com.wojo.authservice.model
 data class UserResponse(
 
         val id: Long,
-        val code: Long,
+        val code: String,
         val email: String,
         val nickName: String
 ) {
@@ -22,7 +22,7 @@ data class UserResponse(
     class Builder {
 
         var id: Long = 0
-        var code: Long = 0
+        var code: String = ""
         var email: String = ""
         var nickName: String = ""
 

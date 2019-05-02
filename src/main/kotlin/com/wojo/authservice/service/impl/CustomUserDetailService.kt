@@ -16,6 +16,7 @@ import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.stereotype.Service
 import java.time.LocalDateTime
+import java.util.*
 
 @Service
 class CustomUserDetailService @Autowired constructor(
@@ -64,8 +65,8 @@ class CustomUserDetailService @Autowired constructor(
         }
     }
 
-    private fun generateUserCode(): Long {
-        return 10L
+    private fun generateUserCode(): String {
+        return UUID.randomUUID().toString()
     }
 
     private val mapEntityToResponse: (UserEntity) -> UserResponse = { user ->

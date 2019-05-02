@@ -13,7 +13,7 @@ class PermissionServiceImpl @Autowired constructor(
         private val userRepository: UserRepository
 ) : PermissionService {
 
-    override fun getPermissionsByUserCode(code: Long): Collection<GrantedAuthority> =
+    override fun getPermissionsByUserCode(code: String): Collection<GrantedAuthority> =
             userRepository.getPermissions(code)
                     .stream()
                     .map { SimpleGrantedAuthority(it) }
