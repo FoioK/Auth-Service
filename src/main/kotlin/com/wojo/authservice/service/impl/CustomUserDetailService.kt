@@ -19,6 +19,7 @@ import com.wojo.authservice.validation.status.UserStatusEvaluate
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.time.LocalDateTime
@@ -53,6 +54,7 @@ class CustomUserDetailService @Autowired constructor(
         if (savedUser.id == 0L || !insertRole(savedUser.code, "user")) {
             throw CreateEntityException("Account was not created")
         }
+        savedUser.userStatus = UserStatus.ACTIVE
 
         return mapEntityToResponse(savedUser)
     }
@@ -93,7 +95,7 @@ class CustomUserDetailService @Autowired constructor(
         UserEntity.build {
             code = generateUserCode()
             email = userInput.email
-            password = userInput.password
+            password = BCryptPasswordEncoder().encode(userInput.password)
             userStatus = UserStatus.CREATED
             nickname = userInput.nickName
             createTime = LocalDateTime.now()

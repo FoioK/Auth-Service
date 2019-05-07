@@ -24,7 +24,7 @@ data class UserEntity(
         val password: String = "",
 
         @Column(nullable = false)
-        val userStatus: UserStatus = UserStatus.DEFAULT,
+        var userStatus: UserStatus = UserStatus.DEFAULT,
 
         @Column(nullable = false, updatable = false)
         val nickname: String = "",
