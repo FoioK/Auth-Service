@@ -69,3 +69,4 @@ config:
       -----END PUBLIC KEY-----
     clientid: foio_auth_service
     clientSecret: 70fNdOLmlKZMfpDa9KCV/iGB/ff7xk2WO5w8XSeMDdc=
+    clientName: foio_api

@@ -6,6 +6,6 @@ import org.springframework.stereotype.Service
 @Service
 interface PermissionService {
 
-    fun getPermissionsByUserCode(code: Long): Collection<GrantedAuthority>
+    fun getPermissionsByUserCode(code: String): Collection<GrantedAuthority>
 
 }
