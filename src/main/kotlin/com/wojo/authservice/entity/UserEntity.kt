@@ -14,8 +14,8 @@ data class UserEntity(
         @GeneratedValue
         val id: Long = 0,
 
-        @Column(nullable = false, updatable = false)
-        val code: Long = 0,
+        @Column(nullable = false, updatable = false, length = 40)
+        val code: String = "",
 
         @Column(nullable = false, updatable = false)
         val email: String = "",
@@ -24,7 +24,7 @@ data class UserEntity(
         val password: String = "",
 
         @Column(nullable = false)
-        val userStatus: UserStatus = UserStatus.DEFAULT,
+        var userStatus: UserStatus = UserStatus.DEFAULT,
 
         @Column(nullable = false, updatable = false)
         val nickname: String = "",
@@ -48,12 +48,12 @@ data class UserEntity(
     )
 
     companion object {
-        inline fun build(block: Permission.Builder.() -> Unit) = Permission.Builder().apply(block).build()
+        inline fun build(block: Builder.() -> Unit) = Builder().apply(block).build()
     }
 
     class Builder {
         var id: Long = 0
-        var code: Long = 0
+        var code: String = ""
         var email: String = ""
         var password: String = ""
         var userStatus: UserStatus = UserStatus.DEFAULT
