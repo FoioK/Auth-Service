@@ -31,7 +31,7 @@ class UserController @Autowired constructor(
         val userResponse: UserResponse = userService.createUser(userInput)
 
         return ResponseEntity
-                .created(URI.create(request.requestURI + "/${userResponse.id}"))
+                .created(URI.create(request.requestURI + "/${userResponse.code}"))
                 .body(userResponse)
     }
 }
