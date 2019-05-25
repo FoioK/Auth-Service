@@ -13,7 +13,7 @@ class CheckUserDuplicates @Autowired constructor(
 ) {
     fun checkDuplicates(userInput: UserInput) {
         val isEmailDuplicate: Boolean = userRepository.findByEmail(userInput.email).isPresent
-        val isNicknameDuplicate: Boolean = userRepository.findByNickname(userInput.nickName).isPresent
+        val isNicknameDuplicate: Boolean = userRepository.findByNickname(userInput.nickname).isPresent
 
         if (isEmailDuplicate) {
             throw DuplicateEmailException("Email already exist")

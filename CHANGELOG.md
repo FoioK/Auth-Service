@@ -6,6 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.3.1] - 25.05.2019
+### Changed
+- Created user uri
+
+### Fixed
+- User input model field name
+
 ## [1.3.0] - 12.05.2019
 ### Added
 - Possibility to add user
@@ -82,7 +89,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Cors filter
 - Security configuration
 
-[Unreleased]: https://github.com/FoioK/Auth-Service/compare/release/1.3.0...HEAD
+[Unreleased]: https://github.com/FoioK/Auth-Service/compare/release/1.3.1...HEAD
+[1.3.1]: https://github.com/FoioK/Auth-Service/compare/release/1.3.0...release/1.3.1
 [1.3.0]: https://github.com/FoioK/Auth-Service/compare/release/1.2.0...release/1.3.0
 [1.2.0]: https://github.com/FoioK/Auth-Service/compare/release/1.1.0...release/1.2.0
 [1.1.0]: https://github.com/FoioK/Auth-Service/compare/release/1.0.0...release/1.1.0

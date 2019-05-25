@@ -13,7 +13,7 @@ val mapInputToEntity: (UserInput) -> UserEntity = { userInput ->
         email = userInput.email
         password = userInput.password
         userStatus = UserStatus.CREATED
-        nickname = userInput.nickName
+        nickname = userInput.nickname
         createTime = LocalDateTime.now()
     }
 }
@@ -24,7 +24,6 @@ private fun generateUserCode(): String {
 
 val mapEntityToResponse: (UserEntity) -> UserResponse = { user ->
     UserResponse.build {
-        id = user.id
         code = user.code
         email = user.email
         nickName = user.nickname

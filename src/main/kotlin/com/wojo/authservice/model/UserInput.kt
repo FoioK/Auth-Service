@@ -13,7 +13,7 @@ data class UserInput(
         val password: String = "",
 
         @field:NotBlank
-        val nickName: String = ""
+        val nickname: String = ""
 ) {
 
     private constructor(builder: Builder) : this(
