@@ -6,6 +6,34 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.3.1] - 25.05.2019
+### Changed
+- Created user uri
+
+### Fixed
+- User input model field name
+
+## [1.3.0] - 12.05.2019
+### Added
+- Possibility to add user
+- Duplicate email, nickname and create entity exceptions
+- User input, response models
+- Temporary api access token
+
+### Changed
+- User code column to String from Long
+- User status now isn't constant
+- Dev start db data
+
+### Fixed
+- UserEntity and UserRole builders
+
+### Security
+- Token provider (validate, parse, get principal)
+- Client name validation
+- Custom OncePerRequestFilter
+- Secured create user endpoint
+
 ## [1.2.0] - 14.04.2019
 ### Added
 - Flyway scripts
@@ -61,7 +89,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Cors filter
 - Security configuration
 
-[Unreleased]: https://github.com/FoioK/Auth-Service/compare/release/1.2.0...HEAD
+[Unreleased]: https://github.com/FoioK/Auth-Service/compare/release/1.3.1...HEAD
+[1.3.1]: https://github.com/FoioK/Auth-Service/compare/release/1.3.0...release/1.3.1
+[1.3.0]: https://github.com/FoioK/Auth-Service/compare/release/1.2.0...release/1.3.0
 [1.2.0]: https://github.com/FoioK/Auth-Service/compare/release/1.1.0...release/1.2.0
 [1.1.0]: https://github.com/FoioK/Auth-Service/compare/release/1.0.0...release/1.1.0
 [1.0.0]: https://github.com/FoioK/Auth-Service/releases/tag/1.0.0
