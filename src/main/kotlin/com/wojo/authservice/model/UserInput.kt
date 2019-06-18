@@ -13,13 +13,13 @@ data class UserInput(
         val password: String = "",
 
         @field:NotBlank
-        val nickname: String = ""
+        val username: String = ""
 ) {
 
     private constructor(builder: Builder) : this(
             builder.email,
             builder.password,
-            builder.nickName
+            builder.username
     )
 
     companion object {
@@ -30,7 +30,7 @@ data class UserInput(
 
         var email: String = ""
         var password: String = ""
-        var nickName: String = ""
+        var username: String = ""
 
         fun build() = UserInput(this)
     }

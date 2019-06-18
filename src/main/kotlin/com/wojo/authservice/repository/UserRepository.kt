@@ -8,10 +8,10 @@ import java.util.*
 @Repository
 interface UserRepository : PermissionRepository, JpaRepository<UserEntity, Long> {
 
-    fun findByEmailOrNickname(email: String, nickname: String): Set<UserEntity>
+    fun findByEmailOrUsername(email: String, username: String): Set<UserEntity>
 
     fun findByEmail(email: String): Optional<UserEntity>
 
-    fun findByNickname(nickname: String): Optional<UserEntity>
+    fun findByUsername(username: String): Optional<UserEntity>
 
 }

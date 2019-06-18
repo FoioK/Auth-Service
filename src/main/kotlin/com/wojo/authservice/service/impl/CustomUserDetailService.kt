@@ -32,7 +32,7 @@ class CustomUserDetailService @Autowired constructor(
 ) : UserDetailsService, UserService {
 
     override fun loadUserByUsername(username: String): UserDetails {
-        val users: Set<UserEntity> = userRepository.findByEmailOrNickname(username, username)
+        val users: Set<UserEntity> = userRepository.findByEmailOrUsername(username, username)
         val user: UserEntity = userStatusEvaluate.evaluate(users)
         user.grantedAuthorityList = permissionService.getPermissionsByUserCode(user.code)
 

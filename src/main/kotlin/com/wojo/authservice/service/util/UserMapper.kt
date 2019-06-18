@@ -13,7 +13,7 @@ val mapInputToEntity: (UserInput) -> UserEntity = { userInput ->
         email = userInput.email
         password = userInput.password
         userStatus = UserStatus.CREATED
-        nickname = userInput.nickname
+        username = userInput.username
         createTime = LocalDateTime.now()
     }
 }
@@ -26,6 +26,6 @@ val mapEntityToResponse: (UserEntity) -> UserResponse = { user ->
     UserResponse.build {
         code = user.code
         email = user.email
-        nickName = user.nickname
+        username = user.username
     }
 }

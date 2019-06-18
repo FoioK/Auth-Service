@@ -4,14 +4,14 @@ data class UserResponse(
 
         val code: String,
         val email: String,
-        val nickname: String
+        val username: String
 
 ) {
 
     private constructor(builder: Builder) : this(
             builder.code,
             builder.email,
-            builder.nickName
+            builder.username
     )
 
     companion object {
@@ -22,7 +22,7 @@ data class UserResponse(
 
         var code: String = ""
         var email: String = ""
-        var nickName: String = ""
+        var username: String = ""
 
         fun build() = UserResponse(this)
     }

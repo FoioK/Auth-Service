@@ -5,10 +5,10 @@ import org.springframework.security.core.userdetails.User
 import java.time.LocalDateTime
 
 class CustomUserDetail(user: UserEntity) :
-        User(user.email, user.password, user.grantedAuthorityList) {
+        User(user.username, user.password, user.grantedAuthorityList) {
 
     val code: String = user.code
-    val nickname: String = user.nickname
+    val email: String = user.email
     val createTime: LocalDateTime = user.createTime
 
 }

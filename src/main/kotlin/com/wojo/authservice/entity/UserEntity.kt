@@ -27,7 +27,7 @@ data class UserEntity(
         var userStatus: UserStatus = UserStatus.DEFAULT,
 
         @Column(nullable = false, updatable = false)
-        val nickname: String = "",
+        val username: String = "",
 
         @Column(nullable = false, updatable = false)
         val createTime: LocalDateTime = LocalDateTime.MIN
@@ -43,7 +43,7 @@ data class UserEntity(
             email = builder.email,
             password = builder.password,
             userStatus = builder.userStatus,
-            nickname = builder.nickname,
+            username = builder.username,
             createTime = builder.createTime
     )
 
@@ -57,7 +57,7 @@ data class UserEntity(
         var email: String = ""
         var password: String = ""
         var userStatus: UserStatus = UserStatus.DEFAULT
-        var nickname: String = ""
+        var username: String = ""
         var createTime: LocalDateTime = LocalDateTime.MIN
 
         fun build() = UserEntity(this)
