@@ -17,6 +17,7 @@ import com.wojo.authservice.service.util.mapInputToEntity
 import com.wojo.authservice.validation.input.CheckUserDuplicates
 import com.wojo.authservice.validation.status.UserStatusEvaluate
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.mail.SimpleMailMessage
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.stereotype.Service
@@ -28,7 +29,9 @@ class CustomUserDetailService @Autowired constructor(
         private val userDuplicates: CheckUserDuplicates,
         private val userStatusEvaluate: UserStatusEvaluate,
         private val permissionService: PermissionService,
-        private val roleService: RoleService
+        private val roleService: RoleService,
+        private val emailSender: EmailSenderService,
+        private val envService: EnvService
 ) : UserDetailsService, UserService {
 
     override fun loadUserByUsername(username: String): UserDetails {
@@ -51,9 +54,25 @@ class CustomUserDetailService @Autowired constructor(
         if (savedUser.id == 0L || !roleService.matchRoleWithUser(savedUser.code, "user")) {
             throw CreateEntityException("Account was not created")
         }
-        savedUser.userStatus = UserStatus.ACTIVE
+        updateStatus(savedUser, UserStatus.CREATED)
+        sendVerificationEmail(savedUser)
 
         return mapEntityToResponse(savedUser)
+    }
+
+    private fun sendVerificationEmail(user: UserEntity) {
+        val mail = SimpleMailMessage()
+        mail.setTo(user.email)
+        mail.setSubject("Complete Registration!")
+        mail.setText("To confirm your account, please click here : ${envService.getServerUrlPrefi()}")
+
+        emailSender.sendEmail(mail)
+        updateStatus(user, UserStatus.PENDING)
+    }
+
+    private fun updateStatus(user: UserEntity, status: UserStatus) {
+        user.userStatus = status
+        userRepository.saveAndFlush(user)
     }
 
 }
