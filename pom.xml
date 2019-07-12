@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.wojo.auth-service</groupId>
     <artifactId>Auth-Service</artifactId>
-    <version>1.3.2-SNAPSHOT</version>
+    <version>1.4.0-SNAPSHOT</version>
     <name>Auth-Service</name>
 
     <properties>
