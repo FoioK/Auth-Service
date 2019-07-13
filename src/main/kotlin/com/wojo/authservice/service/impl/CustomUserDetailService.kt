@@ -1,5 +1,6 @@
 package com.wojo.authservice.service.impl
 
+import com.wojo.authservice.entity.EXPIRATION_TIME_MINUTES
 import com.wojo.authservice.entity.UserEntity
 import com.wojo.authservice.entity.VerificationToken
 import com.wojo.authservice.exception.impl.*
@@ -78,13 +79,18 @@ class CustomUserDetailService @Autowired constructor(
                 .orElseThrow {
                     VerificationTokenNotFoundException("Token ($token) not found")
                 }
-        val user = userRepository.findById(verificationToken.user.id)
-                .orElseThrow {
-                    AccountNotFoundException("User with id ${verificationToken.user.id} not found")
-                }
-        updateStatus(user, UserStatus.ACTIVE)
+        if (verificationToken.isActive()) {
+            val user = userRepository.findById(verificationToken.user.id)
+                    .orElseThrow {
+                        AccountNotFoundException("User with id ${verificationToken.user.id} not found")
+                    }
+            updateStatus(user, UserStatus.ACTIVE)
 
-        return true
+            return true
+        }
+
+        throw TokenExpiredException("Error validating access token: Session has expired on " +
+                "${verificationToken.createdDate.plusMinutes(EXPIRATION_TIME_MINUTES)}")
     }
 
     private fun updateStatus(user: UserEntity, status: UserStatus) {
