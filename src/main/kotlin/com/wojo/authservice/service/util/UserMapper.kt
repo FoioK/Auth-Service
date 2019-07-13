@@ -3,7 +3,6 @@ package com.wojo.authservice.service.util
 import com.wojo.authservice.entity.UserEntity
 import com.wojo.authservice.model.UserInput
 import com.wojo.authservice.model.UserResponse
-import com.wojo.authservice.model.UserStatus
 import java.time.LocalDateTime
 import java.util.*
 
@@ -12,7 +11,6 @@ val mapInputToEntity: (UserInput) -> UserEntity = { userInput ->
         code = generateUserCode()
         email = userInput.email
         password = userInput.password
-        userStatus = UserStatus.CREATED
         username = userInput.username
         createTime = LocalDateTime.now()
     }
