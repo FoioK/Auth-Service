@@ -1,14 +1,14 @@
 package com.wojo.authservice.service.impl
 
 import com.wojo.authservice.entity.UserEntity
-import com.wojo.authservice.exception.impl.CreateEntityException
-import com.wojo.authservice.exception.impl.DuplicateEmailException
-import com.wojo.authservice.exception.impl.DuplicateNicknameException
+import com.wojo.authservice.entity.VerificationToken
+import com.wojo.authservice.exception.impl.*
 import com.wojo.authservice.model.CustomUserDetail
 import com.wojo.authservice.model.UserInput
 import com.wojo.authservice.model.UserResponse
 import com.wojo.authservice.model.UserStatus
 import com.wojo.authservice.repository.UserRepository
+import com.wojo.authservice.repository.VerificationRepository
 import com.wojo.authservice.service.spec.PermissionService
 import com.wojo.authservice.service.spec.RoleService
 import com.wojo.authservice.service.spec.UserService
@@ -17,21 +17,22 @@ import com.wojo.authservice.service.util.mapInputToEntity
 import com.wojo.authservice.validation.input.CheckUserDuplicates
 import com.wojo.authservice.validation.status.UserStatusEvaluate
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.mail.SimpleMailMessage
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+import java.time.LocalDateTime
+import java.util.*
 
 @Service
 class CustomUserDetailService @Autowired constructor(
         private val userRepository: UserRepository,
+        private val verificationRepository: VerificationRepository,
         private val userDuplicates: CheckUserDuplicates,
         private val userStatusEvaluate: UserStatusEvaluate,
         private val permissionService: PermissionService,
         private val roleService: RoleService,
-        private val emailSender: EmailSenderService,
-        private val envService: EnvService
+        private val emailSender: EmailSenderService
 ) : UserDetailsService, UserService {
 
     override fun loadUserByUsername(username: String): UserDetails {
@@ -55,19 +56,35 @@ class CustomUserDetailService @Autowired constructor(
             throw CreateEntityException("Account was not created")
         }
         updateStatus(savedUser, UserStatus.CREATED)
-        sendVerificationEmail(savedUser)
+        verificationProcess(user)
 
         return mapEntityToResponse(savedUser)
     }
 
-    private fun sendVerificationEmail(user: UserEntity) {
-        val mail = SimpleMailMessage()
-        mail.setTo(user.email)
-        mail.setSubject("Complete Registration!")
-        mail.setText("To confirm your account, please click here : ${envService.getServerUrlPrefi()}")
-
-        emailSender.sendEmail(mail)
+    private fun verificationProcess(user: UserEntity) {
+        val token = UUID.randomUUID().toString()
+        val verificationToken = VerificationToken(
+                token = token,
+                user = user,
+                createdDate = LocalDateTime.now()
+        )
+        verificationRepository.save(verificationToken)
+        emailSender.sendEmail(user.email, token)
         updateStatus(user, UserStatus.PENDING)
+    }
+
+    override fun confirmUserAccount(token: String): Boolean {
+        val verificationToken = verificationRepository.findByToken(token)
+                .orElseThrow {
+                    VerificationTokenNotFoundException("Token ($token) not found")
+                }
+        val user = userRepository.findById(verificationToken.user.id)
+                .orElseThrow {
+                    AccountNotFoundException("User with id ${verificationToken.user.id} not found")
+                }
+        updateStatus(user, UserStatus.ACTIVE)
+
+        return true
     }
 
     private fun updateStatus(user: UserEntity, status: UserStatus) {
