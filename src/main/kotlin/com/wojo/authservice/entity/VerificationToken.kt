@@ -25,10 +25,8 @@ data class VerificationToken(
         val createdDate: LocalDateTime = LocalDateTime.now()
 ) {
 
-    fun isActive(): Boolean {
-        val currentTime: LocalDateTime = LocalDateTime.now()
-
-        return currentTime.isBefore(createdDate.plusMinutes(EXPIRATION_TIME_MINUTES))
-    }
+        fun isActive(): Boolean =
+                LocalDateTime.now()
+                        .isBefore(createdDate.plusMinutes(EXPIRATION_TIME_MINUTES))
 
 }
