@@ -3,7 +3,9 @@ package com.wojo.authservice.entity
 import java.time.LocalDateTime
 import javax.persistence.*
 
-private val EXPIRATION: Long = 60 * 24
+private val EXPIRATION_TIME_MINUTES: Long = 60 * 24
+const val VERIFICATION_URI: String = "/confirm-account"
+const val VERIFICATION_PARAM_NAME: String = "token"
 
 @Entity
 data class VerificationToken(
@@ -26,7 +28,7 @@ data class VerificationToken(
     fun isTokenActive(): Boolean {
         val currentTime: LocalDateTime = LocalDateTime.now()
 
-        return currentTime.isBefore(createdDate.plusMinutes(EXPIRATION))
+        return currentTime.isBefore(createdDate.plusMinutes(EXPIRATION_TIME_MINUTES))
     }
 
 }
