@@ -1,6 +1,5 @@
 package com.wojo.authservice.configuration
 
-import com.wojo.authservice.entity.VERIFICATION_URI
 import com.wojo.authservice.security.JwtFilter
 import com.wojo.authservice.security.JwtTokenProvider
 import com.wojo.authservice.service.impl.CustomUserDetailService
@@ -37,10 +36,7 @@ class SecurityConfiguration @Autowired constructor(
     @Throws(Exception::class)
     override fun configure(http: HttpSecurity) {
         http.authorizeRequests()
-                .antMatchers(
-                        "/h2-console/**",
-                        "/users$VERIFICATION_URI",
-                        "/favicon.ico").permitAll()
+                .antMatchers("/h2-console/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/users").hasRole("AUTH_CREATE_USER")
                 .anyRequest()
                 .authenticated()
