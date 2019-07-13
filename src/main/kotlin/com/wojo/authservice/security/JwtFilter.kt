@@ -1,5 +1,6 @@
 package com.wojo.authservice.security
 
+import com.wojo.authservice.entity.VERIFICATION_URI
 import org.springframework.http.HttpHeaders
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.web.filter.OncePerRequestFilter
@@ -29,12 +30,18 @@ class JwtFilter(
         chain.doFilter(request, response)
     }
 
-    private fun getAndValidateHeader(request: HttpServletRequest): String =
-            if (request.getHeader(HttpHeaders.AUTHORIZATION).startsWith(TOKEN_PREFIX))
-                request.getHeader(HttpHeaders.AUTHORIZATION)
-            else throw ServletException("Missing or invalid Authorization header")
-
-    override fun shouldNotFilter(request: HttpServletRequest): Boolean {
-        return !request.requestURI.startsWith("/users")
+    private fun getAndValidateHeader(request: HttpServletRequest): String {
+        val authorizationHeaderValue = request.getHeader(HttpHeaders.AUTHORIZATION)
+        if (authorizationHeaderValue != null && authorizationHeaderValue.startsWith(TOKEN_PREFIX)) {
+            return authorizationHeaderValue
+        } else {
+            throw ServletException("Missing or invalid Authorization header")
+        }
     }
+
+    override fun shouldNotFilter(request: HttpServletRequest): Boolean =
+            "/users$VERIFICATION_URI" == request.requestURI ||
+                    "/favicon.ico" == request.requestURI ||
+                    request.requestURI.startsWith("/h2-console")
+
 }
