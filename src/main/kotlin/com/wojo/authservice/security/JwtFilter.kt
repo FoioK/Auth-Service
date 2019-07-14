@@ -22,7 +22,7 @@ class JwtFilter(
         val header: String = getAndValidateHeader(request)
         val token: String = header.replace(TOKEN_PREFIX, "")
 
-        if (SecurityContextHolder.getContext().authentication == null) {
+        SecurityContextHolder.getContext().authentication?.let {
             this.jwtTokenProvider.validateToken(token, request)
             SecurityContextHolder.getContext().authentication = this.jwtTokenProvider.getPrincipal(token)
         }

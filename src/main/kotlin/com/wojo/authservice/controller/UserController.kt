@@ -26,13 +26,12 @@ class UserController @Autowired constructor(
     fun createUser(
             @Valid @RequestBody userInput: UserInput,
             request: HttpServletRequest
-    ): ResponseEntity<UserResponse> {
-        val userResponse: UserResponse = userService.createUser(userInput)
-
-        return ResponseEntity
-                .created(URI.create(request.requestURI + "/${userResponse.code}"))
-                .body(userResponse)
-    }
+    ): ResponseEntity<UserResponse> =
+            userService.createUser(userInput).let {
+                ResponseEntity
+                        .created(URI.create(request.requestURI + "/${it.code}"))
+                        .body(it)
+            }
 
     @RequestMapping(
             value = [VERIFICATION_URI],

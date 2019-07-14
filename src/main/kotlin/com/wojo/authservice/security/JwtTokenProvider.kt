@@ -27,30 +27,24 @@ class JwtTokenProvider {
     fun validateToken(token: String, request: HttpServletRequest) {
         val claims: Map<String, Any> = parseToken(token)
 
-        if (!validateClient(claims[CLIENT_ID], claims[CLIENT_NAME]) || !validateScope(claims[SCOPE_KEY])) {
+        if (validateClient(claims[CLIENT_ID], claims[CLIENT_NAME]) == null || !validateScope(claims[SCOPE_KEY])) {
             throw ServletException("Invalid token")
         }
     }
 
-    private fun validateClient(clientId: Any?, clientName: Any?): Boolean {
-        if (clientId == null || clientName == null) {
-            return false
-        }
+    private fun validateClient(clientId: Any?, clientName: Any?) =
+            true.takeIf {
+                (clientId != null)
+                        .and(clientName != null)
+                        .and(clientId == this.clientId)
+                        .and(clientName == this.clientName)
+            }
 
-        if (clientId is String && clientName is String) {
-            return clientId == this.clientId && clientName == this.clientName
-        }
-
-        return false
-    }
-
-    private fun validateScope(scope: Any?): Boolean {
-        if (scope is List<*>) {
-            return scope.find { it == "write" } != null
-        }
-
-        return false
-    }
+    private fun validateScope(scope: Any?) =
+            if (scope is List<*>)
+                scope.find { it == "write" } != null
+            else
+                false
 
     fun getPrincipal(token: String): UsernamePasswordAuthenticationToken {
         var authorities: Collection<GrantedAuthority> = mutableListOf()
