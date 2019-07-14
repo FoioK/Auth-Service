@@ -17,8 +17,6 @@ class EnvService @Autowired constructor(
     fun getPort() = environment.getProperty("local.server.port")
 
     @Throws(UnknownHostException::class)
-    fun getServerUrlPrefi(): String {
-        return "http://" + getHostName() + ":" + getPort()
-    }
+    fun getServerUrlPrefix() = "http://" + getHostName() + ":" + getPort()
 
 }

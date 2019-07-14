@@ -70,16 +70,13 @@ constructor(
     }
 
     @Bean
-    fun tokenStore(): JwtTokenStore {
-        return JwtTokenStore(tokenEnhancer())
-    }
+    fun tokenStore() = JwtTokenStore(tokenEnhancer())
 
     @Bean
-    fun tokenEnhancer(): JwtAccessTokenConverter {
-        val converter = CustomTokenEnhancer()
-        converter.setSigningKey(privateKey!!)
-        converter.setVerifierKey(publicKey)
+    fun tokenEnhancer(): JwtAccessTokenConverter =
+            CustomTokenEnhancer().apply {
+                setSigningKey(privateKey!!)
+                setVerifierKey(publicKey)
+            }
 
-        return converter
-    }
 }

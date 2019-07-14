@@ -15,17 +15,15 @@ class EmailSenderService @Autowired constructor(
 ) {
 
     @Async
-    fun sendEmail(emailAddress: String, token: String) {
-        javaMailSender.send(buildVerificationEmail(emailAddress, token))
-    }
+    fun sendEmail(emailAddress: String, token: String) =
+            javaMailSender.send(buildVerificationEmail(emailAddress, token))
 
-    private fun buildVerificationEmail(emailAddress: String, token: String): SimpleMailMessage {
-        val mail = SimpleMailMessage()
-        mail.setTo(emailAddress)
-        mail.setSubject("Complete Registration!")
-        mail.setText("To confirm your account, please click here: " +
-                "${envService.getServerUrlPrefi()}/users$VERIFICATION_URI?$VERIFICATION_PARAM_NAME=$token")
+    private fun buildVerificationEmail(emailAddress: String, token: String): SimpleMailMessage =
+            SimpleMailMessage().apply {
+                setTo(emailAddress)
+                setSubject("Complete Registration!")
+                setText("To confirm your account, please click here: " +
+                        "${envService.getServerUrlPrefix()}/users$VERIFICATION_URI?$VERIFICATION_PARAM_NAME=$token")
+            }
 
-        return mail
-    }
 }

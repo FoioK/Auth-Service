@@ -19,10 +19,12 @@ class CorsFilter : Filter {
         val response = servletResponse as HttpServletResponse
         val request = servletRequest as HttpServletRequest
 
-        response.setHeader("Access-Control-Allow-Origin", "*")
-        response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE, PUT")
-        response.setHeader("Access-Control-Max-Age", "")
-        response.setHeader("Access-Control-Allow-Headers", "x-requested-with, authorization, content-type")
+        response.apply {
+            setHeader("Access-Control-Allow-Origin", "*")
+            setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE, PUT")
+            setHeader("Access-Control-Max-Age", "")
+            setHeader("Access-Control-Allow-Headers", "x-requested-with, authorization, content-type")
+        }
 
         if ("OPTIONS".equals(request.method, ignoreCase = true)) {
             response.status = HttpServletResponse.SC_OK
@@ -32,4 +34,5 @@ class CorsFilter : Filter {
     }
 
     override fun destroy() = Unit
+
 }

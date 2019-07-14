@@ -7,23 +7,21 @@ import java.time.LocalDateTime
 import java.util.*
 
 val mapInputToEntity: (UserInput) -> UserEntity = { userInput ->
-    UserEntity.build {
-        code = generateUserCode()
-        email = userInput.email
-        password = userInput.password
-        username = userInput.username
-        createTime = LocalDateTime.now()
-    }
+    UserEntity(
+            code = generateUserCode(),
+            email = userInput.email,
+            password = userInput.password,
+            username = userInput.username,
+            createTime = LocalDateTime.now()
+    )
 }
 
-private fun generateUserCode(): String {
-    return UUID.randomUUID().toString()
-}
+private fun generateUserCode(): String = UUID.randomUUID().toString()
 
 val mapEntityToResponse: (UserEntity) -> UserResponse = { user ->
-    UserResponse.build {
-        code = user.code
-        email = user.email
-        username = user.username
-    }
+    UserResponse(
+            code = user.code,
+            email = user.email,
+            username = user.username
+    )
 }
