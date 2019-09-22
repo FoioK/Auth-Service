@@ -32,8 +32,7 @@ class CustomUserDetailService @Autowired constructor(
         private val userDuplicates: CheckUserDuplicates,
         private val userStatusEvaluate: UserStatusEvaluate,
         private val permissionService: PermissionService,
-        private val roleService: RoleService,
-        private val emailSender: EmailSenderService
+        private val roleService: RoleService
 ) : UserDetailsService, UserService {
 
     override fun loadUserByUsername(username: String): UserDetails {
