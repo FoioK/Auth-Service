@@ -21,11 +21,8 @@ class JwtFilter(
             chain: FilterChain) {
         val header: String = getAndValidateHeader(request)
         val token: String = header.replace(TOKEN_PREFIX, "")
-
-        SecurityContextHolder.getContext().authentication?.let {
-            this.jwtTokenProvider.validateToken(token, request)
-            SecurityContextHolder.getContext().authentication = this.jwtTokenProvider.getPrincipal(token)
-        }
+        this.jwtTokenProvider.validateToken(token, request)
+        SecurityContextHolder.getContext().authentication = this.jwtTokenProvider.getPrincipal(token)
 
         chain.doFilter(request, response)
     }
