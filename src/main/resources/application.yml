@@ -33,6 +33,8 @@ spring:
     validate-on-migrate: true
     enabled: false
 
+  jackson:
+    default-property-inclusion: non_null
 
 server:
   port: 8090
