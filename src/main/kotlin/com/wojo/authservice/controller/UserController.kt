@@ -25,9 +25,10 @@ class UserController @Autowired constructor(
             produces = [MediaType.APPLICATION_JSON_UTF8_VALUE])
     fun createUser(
             @Valid @RequestBody userInput: UserInput,
+            @RequestParam("isNeedVerification", defaultValue = true.toString()) isNeedVerification: Boolean,
             request: HttpServletRequest
     ): ResponseEntity<UserResponse> =
-            userService.createUser(userInput).let {
+            userService.createUser(userInput, isNeedVerification).let {
                 ResponseEntity
                         .created(URI.create(request.requestURI + "/${it.code}"))
                         .body(it)

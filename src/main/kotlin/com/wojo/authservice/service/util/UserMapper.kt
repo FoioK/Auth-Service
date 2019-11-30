@@ -18,10 +18,11 @@ val mapInputToEntity: (UserInput) -> UserEntity = { userInput ->
 
 private fun generateUserCode(): String = UUID.randomUUID().toString()
 
-val mapEntityToResponse: (UserEntity) -> UserResponse = { user ->
+val mapEntityToResponse: (UserEntity, String?) -> UserResponse = { user, token ->
     UserResponse(
             code = user.code,
             email = user.email,
-            username = user.username
+            username = user.username,
+            verificationToken = token
     )
 }

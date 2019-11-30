@@ -32,8 +32,7 @@ class CustomUserDetailService @Autowired constructor(
         private val userDuplicates: CheckUserDuplicates,
         private val userStatusEvaluate: UserStatusEvaluate,
         private val permissionService: PermissionService,
-        private val roleService: RoleService,
-        private val emailSender: EmailSenderService
+        private val roleService: RoleService
 ) : UserDetailsService, UserService {
 
     override fun loadUserByUsername(username: String): UserDetails {
@@ -49,7 +48,7 @@ class CustomUserDetailService @Autowired constructor(
         DuplicateEmailException::class,
         DuplicateNicknameException::class
     ])
-    override fun createUser(userInput: UserInput): UserResponse {
+    override fun createUser(userInput: UserInput, isNeedVerification: Boolean): UserResponse {
         userDuplicates.checkDuplicates(userInput)
         val user: UserEntity = mapInputToEntity(userInput)
         val savedUser: UserEntity = userRepository.save(user)
@@ -57,22 +56,31 @@ class CustomUserDetailService @Autowired constructor(
             throw CreateEntityException("Account was not created")
         }
         updateStatus(savedUser, UserStatus.CREATED)
-        verificationProcess(user)
+        val verificationToken = if (isNeedVerification) verificationProcess(user) else updateWithoutVerification(user)
 
-        return mapEntityToResponse(savedUser)
+        return mapEntityToResponse(savedUser, verificationToken)
     }
 
-    private fun verificationProcess(user: UserEntity) {
-        val token = UUID.randomUUID().toString()
-        val verificationToken = VerificationToken(
-                token = token,
-                user = user,
-                createdDate = LocalDateTime.now()
-        )
-        verificationRepository.save(verificationToken)
-        emailSender.sendEmail(user.email, token)
-        updateStatus(user, UserStatus.PENDING)
-    }
+    private fun verificationProcess(user: UserEntity): String? =
+            run {
+                val token = UUID.randomUUID().toString()
+                val verificationToken = VerificationToken(
+                        token = token,
+                        user = user,
+                        createdDate = LocalDateTime.now()
+                )
+                verificationRepository.save(verificationToken)
+                updateStatus(user, UserStatus.PENDING)
+
+                token
+            }
+
+    private fun updateWithoutVerification(user: UserEntity): String? =
+            run {
+                updateStatus(user, UserStatus.ACTIVE)
+
+                null
+            }
 
     override fun confirmUserAccount(token: String): Boolean {
         val verificationToken = verificationRepository.findByToken(token)

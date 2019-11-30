@@ -37,30 +37,4 @@ data class UserEntity(
     @Transient
     var grantedAuthorityList: Collection<GrantedAuthority> = ArrayList()
 
-    private constructor(builder: Builder) : this(
-            id = builder.id,
-            code = builder.code,
-            email = builder.email,
-            password = builder.password,
-            userStatus = builder.userStatus,
-            username = builder.username,
-            createTime = builder.createTime
-    )
-
-    companion object {
-        inline fun build(block: Builder.() -> Unit) = Builder().apply(block).build()
-    }
-
-    class Builder {
-        var id: Long = 0
-        var code: String = ""
-        var email: String = ""
-        var password: String = ""
-        var userStatus: UserStatus = UserStatus.DEFAULT
-        var username: String = ""
-        var createTime: LocalDateTime = LocalDateTime.MIN
-
-        fun build() = UserEntity(this)
-    }
-
 }

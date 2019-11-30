@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service
 @Service
 interface UserService {
 
-    fun createUser(userInput: UserInput): UserResponse
+    fun createUser(userInput: UserInput, isNeedVerification: Boolean): UserResponse
 
     fun confirmUserAccount(token: String): Boolean
 
