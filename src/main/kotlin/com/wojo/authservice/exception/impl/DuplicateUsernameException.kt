@@ -6,5 +6,5 @@ import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.ResponseStatus
 
 @ResponseStatus(HttpStatus.CONFLICT)
-class DuplicateNicknameException(message: String) :
+class DuplicateUsernameException(message: String) :
         CustomOAuthException(message, ErrorCode.DUPLICATE_NICKNAME, HttpStatus.CONFLICT)
