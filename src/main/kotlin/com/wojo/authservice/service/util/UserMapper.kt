@@ -5,6 +5,7 @@ import com.wojo.authservice.model.UserInput
 import com.wojo.authservice.model.UserResponse
 import java.time.LocalDateTime
 import java.util.*
+import kotlin.streams.toList
 
 val mapInputToEntity: (UserInput) -> UserEntity = { userInput ->
     UserEntity(
@@ -14,6 +15,12 @@ val mapInputToEntity: (UserInput) -> UserEntity = { userInput ->
             username = userInput.username,
             createTime = LocalDateTime.now()
     )
+}
+
+val mapAllToEntity: (Set<UserInput>) -> List<UserEntity> = {
+    it.stream()
+            .map { mapInputToEntity(it) }
+            .toList()
 }
 
 private fun generateUserCode(): String = UUID.randomUUID().toString()

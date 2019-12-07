@@ -1,5 +1,6 @@
 package com.wojo.authservice.service.impl
 
+import com.wojo.authservice.service.util.CsvUtils
 import com.wojo.authservice.entity.EXPIRATION_TIME_MINUTES
 import com.wojo.authservice.entity.UserEntity
 import com.wojo.authservice.entity.VerificationToken
@@ -13,23 +14,25 @@ import com.wojo.authservice.repository.VerificationRepository
 import com.wojo.authservice.service.spec.PermissionService
 import com.wojo.authservice.service.spec.RoleService
 import com.wojo.authservice.service.spec.UserService
+import com.wojo.authservice.service.util.mapAllToEntity
 import com.wojo.authservice.service.util.mapEntityToResponse
 import com.wojo.authservice.service.util.mapInputToEntity
-import com.wojo.authservice.validation.input.CheckUserDuplicates
+import com.wojo.authservice.validation.input.UserInputValidator
 import com.wojo.authservice.validation.status.UserStatusEvaluate
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+import org.springframework.web.multipart.MultipartFile
 import java.time.LocalDateTime
 import java.util.*
 
 @Service
-class CustomUserDetailService @Autowired constructor(
+class CustomUserService @Autowired constructor(
         private val userRepository: UserRepository,
         private val verificationRepository: VerificationRepository,
-        private val userDuplicates: CheckUserDuplicates,
+        private val userInputValidator: UserInputValidator,
         private val userStatusEvaluate: UserStatusEvaluate,
         private val permissionService: PermissionService,
         private val roleService: RoleService
@@ -46,10 +49,10 @@ class CustomUserDetailService @Autowired constructor(
     @Transactional(rollbackFor = [
         CreateEntityException::class,
         DuplicateEmailException::class,
-        DuplicateNicknameException::class
+        DuplicateUsernameException::class
     ])
     override fun createUser(userInput: UserInput, isNeedVerification: Boolean): UserResponse {
-        userDuplicates.checkDuplicates(userInput)
+        userInputValidator.checkDuplicates(userInput)
         val user: UserEntity = mapInputToEntity(userInput)
         val savedUser: UserEntity = userRepository.save(user)
         if (savedUser.id == 0L || !roleService.matchRoleWithUser(savedUser.code, "user")) {
@@ -104,6 +107,21 @@ class CustomUserDetailService @Autowired constructor(
     private fun updateStatus(user: UserEntity, status: UserStatus) {
         user.userStatus = status
         userRepository.saveAndFlush(user)
+    }
+
+    @Transactional(rollbackFor = [
+        CreateEntityException::class,
+        DuplicateEmailException::class,
+        DuplicateUsernameException::class
+    ])
+    override fun importFromFile(file: MultipartFile): Set<UserResponse> {
+        val users: Set<UserInput> = CsvUtils.read(UserInput::class.java, file.inputStream)
+        userInputValidator.validateAll(users)
+        userInputValidator.checkDuplicatesForAll(users)
+
+        val entities: List<UserEntity> = mapAllToEntity(users)
+
+        return emptySet()
     }
 
 }
