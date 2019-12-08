@@ -37,10 +37,7 @@ class SecurityConfiguration @Autowired constructor(
     @Throws(Exception::class)
     override fun configure(http: HttpSecurity) {
         http.authorizeRequests()
-                .antMatchers(
-                        "/h2-console/**",
-                        "/users$VERIFICATION_URI",
-                        "/favicon.ico").permitAll()
+                .antMatchers("/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/users").hasRole("AUTH_CREATE_USER")
                 .anyRequest()
                 .authenticated()
