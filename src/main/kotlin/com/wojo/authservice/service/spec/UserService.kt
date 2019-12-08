@@ -12,6 +12,6 @@ interface UserService {
 
     fun confirmUserAccount(token: String): Boolean
 
-    fun importFromFile(file: MultipartFile): Set<UserResponse>;
+    fun importFromFile(file: MultipartFile): List<UserResponse>
 
 }

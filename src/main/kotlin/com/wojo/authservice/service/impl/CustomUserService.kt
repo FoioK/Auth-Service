@@ -1,6 +1,5 @@
 package com.wojo.authservice.service.impl
 
-import com.wojo.authservice.service.util.CsvUtils
 import com.wojo.authservice.entity.EXPIRATION_TIME_MINUTES
 import com.wojo.authservice.entity.UserEntity
 import com.wojo.authservice.entity.VerificationToken
@@ -14,9 +13,7 @@ import com.wojo.authservice.repository.VerificationRepository
 import com.wojo.authservice.service.spec.PermissionService
 import com.wojo.authservice.service.spec.RoleService
 import com.wojo.authservice.service.spec.UserService
-import com.wojo.authservice.service.util.mapAllToEntity
-import com.wojo.authservice.service.util.mapEntityToResponse
-import com.wojo.authservice.service.util.mapInputToEntity
+import com.wojo.authservice.service.util.*
 import com.wojo.authservice.validation.input.UserInputValidator
 import com.wojo.authservice.validation.status.UserStatusEvaluate
 import org.springframework.beans.factory.annotation.Autowired
@@ -114,14 +111,19 @@ class CustomUserService @Autowired constructor(
         DuplicateEmailException::class,
         DuplicateUsernameException::class
     ])
-    override fun importFromFile(file: MultipartFile): Set<UserResponse> {
+    override fun importFromFile(file: MultipartFile): List<UserResponse> {
         val users: Set<UserInput> = CsvUtils.read(UserInput::class.java, file.inputStream)
         userInputValidator.validateAll(users)
         userInputValidator.checkDuplicatesForAll(users)
 
         val entities: List<UserEntity> = mapAllToEntity(users)
+        val savedUsers: List<UserEntity> = userRepository.saveAll(entities)
+        savedUsers.forEach { user ->
+            roleService.matchRoleWithUser(user.code, "user")
+            updateStatus(user, UserStatus.ACTIVE)
+        }
 
-        return emptySet()
+        return mapAllToResponse(savedUsers)
     }
 
 }

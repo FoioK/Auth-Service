@@ -45,7 +45,7 @@ class UserController @Autowired constructor(
     @PostMapping(
             value = ["/import"],
             consumes = ["multipart/form-data"])
-    fun importFromFile(@RequestParam("file") file: MultipartFile): ResponseEntity<Set<UserResponse>> =
+    fun importFromFile(@RequestParam("file") file: MultipartFile): ResponseEntity<List<UserResponse>> =
             ResponseEntity.ok(userService.importFromFile(file))
 
 }

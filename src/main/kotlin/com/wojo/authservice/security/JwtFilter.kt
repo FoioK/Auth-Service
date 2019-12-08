@@ -39,6 +39,7 @@ class JwtFilter(
     override fun shouldNotFilter(request: HttpServletRequest): Boolean =
             "/users$VERIFICATION_URI" == request.requestURI ||
                     "/favicon.ico" == request.requestURI ||
+                    "/oauth/token" == request.requestURI ||
                     request.requestURI.startsWith("/h2-console")
 
 }
