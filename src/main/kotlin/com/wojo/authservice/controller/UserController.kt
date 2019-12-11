@@ -4,12 +4,13 @@ import com.wojo.authservice.entity.VERIFICATION_PARAM_NAME
 import com.wojo.authservice.entity.VERIFICATION_URI
 import com.wojo.authservice.model.UserInput
 import com.wojo.authservice.model.UserResponse
-import com.wojo.authservice.service.impl.CustomUserDetailService
+import com.wojo.authservice.service.impl.CustomUserService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
+import org.springframework.web.multipart.MultipartFile
 import java.net.URI
 import javax.servlet.http.HttpServletRequest
 import javax.validation.Valid
@@ -17,7 +18,7 @@ import javax.validation.Valid
 @RestController
 @RequestMapping("/users")
 class UserController @Autowired constructor(
-        private val userService: CustomUserDetailService
+        private val userService: CustomUserService
 ) {
 
     @PostMapping(
@@ -40,5 +41,11 @@ class UserController @Autowired constructor(
     fun confirmUserAccount(@RequestParam(VERIFICATION_PARAM_NAME) token: String) =
             if (userService.confirmUserAccount(token)) HttpStatus.OK
             else HttpStatus.BAD_REQUEST
+
+    @PostMapping(
+            value = ["/import"],
+            consumes = ["multipart/form-data"])
+    fun importFromFile(@RequestParam("file") file: MultipartFile): ResponseEntity<List<UserResponse>> =
+            ResponseEntity.ok(userService.importFromFile(file))
 
 }

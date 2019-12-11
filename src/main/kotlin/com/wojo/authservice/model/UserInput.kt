@@ -1,5 +1,6 @@
 package com.wojo.authservice.model
 
+import com.wojo.authservice.validation.input.EMAIL_REGEXP
 import javax.validation.constraints.NotBlank
 import javax.validation.constraints.Pattern
 
@@ -8,7 +9,7 @@ data class UserInput(
         @field:NotBlank
         @field:Pattern(
                 message = "Email invalid",
-                regexp = "(([^<>()\\[\\]\\\\.,;:\\s@\"]+(\\.[^<>()\\[\\]\\\\.,;:\\s@\"]+)*)|(\".+\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))\$")
+                regexp = EMAIL_REGEXP)
         val email: String = "",
 
         @field:NotBlank

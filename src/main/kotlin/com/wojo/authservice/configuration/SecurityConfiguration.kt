@@ -3,7 +3,7 @@ package com.wojo.authservice.configuration
 import com.wojo.authservice.entity.VERIFICATION_URI
 import com.wojo.authservice.security.JwtFilter
 import com.wojo.authservice.security.JwtTokenProvider
-import com.wojo.authservice.service.impl.CustomUserDetailService
+import com.wojo.authservice.service.impl.CustomUserService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -23,24 +23,21 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 class SecurityConfiguration @Autowired constructor(
-        private val customUserDetailService: CustomUserDetailService,
+        private val customUserService: CustomUserService,
         private val jwtTokenProvider: JwtTokenProvider
 ) : WebSecurityConfigurerAdapter() {
 
     @Autowired
     @Throws(Exception::class)
     override fun configure(auth: AuthenticationManagerBuilder) {
-        auth.userDetailsService(customUserDetailService)
+        auth.userDetailsService(customUserService)
                 .passwordEncoder(encoder())
     }
 
     @Throws(Exception::class)
     override fun configure(http: HttpSecurity) {
         http.authorizeRequests()
-                .antMatchers(
-                        "/h2-console/**",
-                        "/users$VERIFICATION_URI",
-                        "/favicon.ico").permitAll()
+                .antMatchers("/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/users").hasRole("AUTH_CREATE_USER")
                 .anyRequest()
                 .authenticated()
