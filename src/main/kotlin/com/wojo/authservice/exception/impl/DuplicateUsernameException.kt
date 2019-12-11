@@ -3,6 +3,8 @@ package com.wojo.authservice.exception.impl
 import com.wojo.authservice.exception.CustomOAuthException
 import com.wojo.authservice.exception.ErrorCode
 import org.springframework.http.HttpStatus
+import org.springframework.web.bind.annotation.ResponseStatus
 
-class DuplicateNicknameException(message: String) :
+@ResponseStatus(HttpStatus.CONFLICT)
+class DuplicateUsernameException(message: String) :
         CustomOAuthException(message, ErrorCode.DUPLICATE_NICKNAME, HttpStatus.CONFLICT)

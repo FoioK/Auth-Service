@@ -1,5 +1,6 @@
 package com.wojo.authservice.security
 
+import com.wojo.authservice.entity.VERIFICATION_URI
 import org.springframework.http.HttpHeaders
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.web.filter.OncePerRequestFilter
@@ -20,21 +21,20 @@ class JwtFilter(
             chain: FilterChain) {
         val header: String = getAndValidateHeader(request)
         val token: String = header.replace(TOKEN_PREFIX, "")
-
-        if (SecurityContextHolder.getContext().authentication == null) {
-            this.jwtTokenProvider.validateToken(token, request)
-            SecurityContextHolder.getContext().authentication = this.jwtTokenProvider.getPrincipal(token)
-        }
+        this.jwtTokenProvider.validateToken(token, request)
+        SecurityContextHolder.getContext().authentication = this.jwtTokenProvider.getPrincipal(token)
 
         chain.doFilter(request, response)
     }
 
-    private fun getAndValidateHeader(request: HttpServletRequest): String =
-            if (request.getHeader(HttpHeaders.AUTHORIZATION).startsWith(TOKEN_PREFIX))
-                request.getHeader(HttpHeaders.AUTHORIZATION)
-            else throw ServletException("Missing or invalid Authorization header")
-
-    override fun shouldNotFilter(request: HttpServletRequest): Boolean {
-        return !request.requestURI.startsWith("/users")
+    private fun getAndValidateHeader(request: HttpServletRequest): String {
+        val authorizationHeaderValue = request.getHeader(HttpHeaders.AUTHORIZATION)
+        if (authorizationHeaderValue != null && authorizationHeaderValue.startsWith(TOKEN_PREFIX)) {
+            return authorizationHeaderValue
+        } else {
+            throw ServletException("Missing or invalid Authorization header")
+        }
     }
+
+    override fun shouldNotFilter(request: HttpServletRequest): Boolean = "/users" != request.requestURI
 }

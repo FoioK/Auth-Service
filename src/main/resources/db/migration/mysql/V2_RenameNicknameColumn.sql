@@ -1,0 +1,1 @@
+ALTER TABLE user 'username' 'username' varchar(255) NOT NULL

@@ -26,10 +26,10 @@ class RoleServiceImpl @Autowired constructor(
     }
 
     private fun insertUserRole(code: String, role: Role): Boolean {
-        val userRole: UserRole = UserRole.build {
-            userCode = code
-            this.role = role
-        }
+        val userRole = UserRole(
+                userCode = code,
+                role = role
+        )
 
         return userRoleRepository.save(userRole).id != 0L
     }

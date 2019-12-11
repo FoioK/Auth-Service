@@ -17,7 +17,7 @@ class CustomTokenEnhancer : JwtAccessTokenConverter() {
         val info = LinkedHashMap(accessToken.additionalInformation)
 
         info["code"] = user.code
-        info["nickname"] = user.nickname
+        info["email"] = user.email
         info["createTime"] = user.createTime.toString()
 
         val customAccessToken = DefaultOAuth2AccessToken(accessToken)

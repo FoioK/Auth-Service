@@ -24,7 +24,8 @@ class UserStatusEvaluate @Autowired constructor(
         }
 
         return users.asSequence().find { it.userStatus == UserStatus.ACTIVE }
-                ?: users.asSequence().find { it.userStatus == UserStatus.MODIFIED } ?: users.first()
+                ?: users.asSequence().find { it.userStatus == UserStatus.MODIFIED }
+                ?: users.first()
     }
 
     private fun evaluateStatusByStrategy(user: UserEntity): UserEntity =
