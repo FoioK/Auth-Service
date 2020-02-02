@@ -5,6 +5,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>auth-service-core</module>
+        <module>auth-service-test</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -21,6 +22,7 @@
         <java.version>1.8</java.version>
         <kotlin.version>1.3.30</kotlin.version>
         <hiibernate.version>5.4.1.Final</hiibernate.version>
+        <cucumber.version>4.2.6</cucumber.version>
     </properties>
 
 </project>
