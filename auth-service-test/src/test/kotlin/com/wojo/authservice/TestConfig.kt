@@ -1,8 +1,6 @@
-package com.wojo.authservice;
+package com.wojo.authservice
 
-import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Configuration
 
 @Configuration
-public class TestConfig {
-
-}
+class TestConfig
