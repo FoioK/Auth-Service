@@ -22,8 +22,8 @@ class UserController @Autowired constructor(
 ) {
 
     @PostMapping(
-            consumes = [MediaType.APPLICATION_JSON_UTF8_VALUE],
-            produces = [MediaType.APPLICATION_JSON_UTF8_VALUE])
+            consumes = [MediaType.APPLICATION_JSON_VALUE],
+            produces = [MediaType.APPLICATION_JSON_VALUE])
     fun createUser(
             @Valid @RequestBody userInput: UserInput,
             @RequestParam("isNeedVerification", defaultValue = true.toString()) isNeedVerification: Boolean,
