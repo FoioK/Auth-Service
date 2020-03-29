@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.4.x] - 11.12.2019
 ### Added
-- Jackson dataformat csv dependency
+- Jackson data format csv dependency
 - Import from file flow
 - Csv utils
 
@@ -97,9 +97,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Cors filter
 - Security configuration
 
-[Unreleased]: https://github.com/FoioK/Auth-Service/compare/release/1.4.x...HEAD
-[1.4.x]: https://github.com/FoioK/Auth-Service/compare/release/1.3.0...release/1.4.x
-[1.3.0]: https://github.com/FoioK/Auth-Service/compare/release/1.2.0...release/1.3.0
-[1.2.0]: https://github.com/FoioK/Auth-Service/compare/release/1.1.0...release/1.2.0
-[1.1.0]: https://github.com/FoioK/Auth-Service/compare/release/1.0.0...release/1.1.0
+[Unreleased]: https://github.com/FoioK/Auth-Service/compare/master...HEAD
+[1.4.x]: https://github.com/FoioK/Auth-Service/compare/1.3.1...1.4.x
+[1.3.x]: https://github.com/FoioK/Auth-Service/compare/1.2.0...1.3.1
+[1.2.0]: https://github.com/FoioK/Auth-Service/compare/1.1.0...1.2.0
+[1.1.0]: https://github.com/FoioK/Auth-Service/compare/1.0.0...1.1.0
 [1.0.0]: https://github.com/FoioK/Auth-Service/releases/tag/1.0.0
