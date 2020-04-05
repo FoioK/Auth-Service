@@ -1,4 +1,4 @@
-name: prod build
+name: Test and publish docker image
 
 on:
   push:
@@ -9,6 +9,7 @@ on:
 jobs:
 
   test:
+    name: Test
     runs-on: ubuntu-latest
     steps:
       - name: Git checkout
@@ -21,6 +22,8 @@ jobs:
         run: mvn clean verify
 
   docker:
+    name: Publish docker image
+    needs: test
     runs-on: ubuntu-latest
     steps:
       - name: Git checkout
