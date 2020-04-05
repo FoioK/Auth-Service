@@ -142,7 +142,7 @@
                 </executions>
                 <configuration>
                     <skip>${dockerfile.skip}</skip>
-                    <repository>${docker.repo}/${project.parent.artifactId}</repository>
+                    <repository>${docker.repo}</repository>
                     <tag>${project.version}</tag>
                     <buildArgs>
                         <JAR_FILE>${project.build.finalName}.jar</JAR_FILE>
