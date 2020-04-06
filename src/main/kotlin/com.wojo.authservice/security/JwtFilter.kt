@@ -1,6 +1,5 @@
 package com.wojo.authservice.security
 
-import com.wojo.authservice.entity.VERIFICATION_URI
 import org.springframework.http.HttpHeaders
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.web.filter.OncePerRequestFilter
