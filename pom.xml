@@ -22,7 +22,7 @@
         <hiibernate.version>5.4.1.Final</hiibernate.version>
         <maven.sunfire.plugin-version>2.4.3</maven.sunfire.plugin-version>
         <dockerfile-maven-version>1.4.10</dockerfile-maven-version>
-        <docker.repo>docker.pkg.github.com/FoioK/Auth-Service</docker.repo>
+        <docker.repo>docker.pkg.github.com/foiok/auth-service</docker.repo>
         <dockerfile.skip>true</dockerfile.skip>
     </properties>
 

@@ -35,4 +35,4 @@ jobs:
       - name: Deploy docker image with maven
         env:
           DOCKER_PASSWORD: ${{ secrets.DOCKER_TOKEN }}
-        run: mvn clean package dockerfile:push -DskipTests -Ddockerfile.skip=false -Ddockerfile.username=FoioK -Ddockerfile.password=$DOCKER_PASSWORD
+        run: mvn clean package dockerfile:push -DskipTests -Ddockerfile.skip=false -Ddockerfile.username=foiok -Ddockerfile.password=$DOCKER_PASSWORD
