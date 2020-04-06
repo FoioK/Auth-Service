@@ -33,6 +33,4 @@ jobs:
         with:
           java-version: 13
       - name: Deploy docker image with maven
-        env:
-          $DOCKER_PASSWORD: ${{ secrets.DOCKER_TOKEN }}
-        run: mvn clean package dockerfile:push -DskipTests -Ddockerfile.skip=false -Ddockerfile.username=foiok -Ddockerfile.password=$DOCKER_PASSWORD
+        run: mvn clean package dockerfile:push -DskipTests -Ddockerfile.skip=false -Ddockerfile.username=foiok -Ddockerfile.password=${{ secrets.DOCKER_TOKEN }}
