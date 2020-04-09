@@ -1,0 +1,19 @@
+version: '3.7'
+
+services:
+
+  portainer:
+    container_name: portainer
+    hostname: portainer
+    image: portainer/portainer
+    ports:
+      - 9000:9000
+
+  postgres:
+    image: postgres
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: auth_user
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: auth_service
