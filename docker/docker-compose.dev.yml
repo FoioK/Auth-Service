@@ -17,3 +17,10 @@ services:
       POSTGRES_USER: auth_user
       POSTGRES_PASSWORD: admin
       POSTGRES_DB: auth_service
+
+  auth-service:
+    container_name: auth-service
+    hostname: auth-service
+    image: docker.pkg.github.com/foiok/auth-service/auth-service:1.5.0-snapshot
+    ports:
+      - 8080:8080
