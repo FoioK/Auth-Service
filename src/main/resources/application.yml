@@ -7,14 +7,14 @@ spring:
     name: Auth-Service
 
   datasource:
-    driverClassName:
-    url:
-    username:
-    password:
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/auth_service
+    username: auth_user
+    password: admin
 
   jpa:
     hibernate:
-      ddl-auto: none
+      ddl-auto: update
 
   jackson:
     default-property-inclusion: non_null
