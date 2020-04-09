@@ -16,6 +16,9 @@ spring:
     hibernate:
       ddl-auto: update
 
+  liquibase:
+    change-log: classpath:/db/changelog/dbchangelog.xml
+
   jackson:
     default-property-inclusion: non_null
 
