@@ -11,7 +11,7 @@ import javax.persistence.*
 data class UserEntity(
 
         @Id
-        @GeneratedValue
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
         val id: Long = 0,
 
         @Column(nullable = false, updatable = false, length = 40)
