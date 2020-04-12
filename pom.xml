@@ -26,6 +26,7 @@
         <docker.repo>docker.pkg.github.com/foiok/auth-service</docker.repo>
         <dockerfile.skip>true</dockerfile.skip>
         <diffChangeLogFile>classpath:/db/changelog/dbchangelog.xml</diffChangeLogFile>
+        <liquibasePropertiesPath>classpath:liquibase.properties</liquibasePropertiesPath>
     </properties>
 
     <dependencies>
@@ -170,7 +171,7 @@
                 <version>3.5.5</version>
                 <configuration>
                     <diffChangeLogFile>${diffChangeLogFile}</diffChangeLogFile>
-                    <propertyFile>classpath:liquibase.properties</propertyFile>
+                    <propertyFile>${liquibasePropertiesPath}</propertyFile>
                 </configuration>
                 <dependencies>
                     <dependency>
