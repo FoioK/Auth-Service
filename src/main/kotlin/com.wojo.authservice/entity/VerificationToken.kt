@@ -11,7 +11,7 @@ const val VERIFICATION_PARAM_NAME: String = "token"
 data class VerificationToken(
 
         @Id
-        @GeneratedValue
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
         val id: Long = 0,
 
         @Column
