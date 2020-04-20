@@ -23,8 +23,11 @@
         <dockerfile-maven-version>1.4.13</dockerfile-maven-version>
         <docker.repo>docker.pkg.github.com/foiok/auth-service</docker.repo>
         <dockerfile.skip>true</dockerfile.skip>
-        <diffChangeLogFile>classpath:/db/changelog/dbchangelog.xml</diffChangeLogFile>
         <liquibasePropertiesPath>src/main/resources/liquibase.properties</liquibasePropertiesPath>
+        <liquibase-maven-plugin.version>3.4.1</liquibase-maven-plugin.version>
+        <liquibase-hibernate4.version>3.5</liquibase-hibernate4.version>
+        <liquibase-spring-bean.version>4.1.7.RELEASE</liquibase-spring-bean.version>
+        <liquibase-spring-data-jpa.version>1.7.3.RELEASE</liquibase-spring-data-jpa.version>
     </properties>
 
     <dependencies>
@@ -103,7 +106,7 @@
         <dependency>
             <groupId>org.liquibase</groupId>
             <artifactId>liquibase-maven-plugin</artifactId>
-            <version>3.4.1</version>
+            <version>${liquibase-maven-plugin.version}</version>
         </dependency>
 
         <dependency>
@@ -127,25 +130,25 @@
             <plugin>
                 <groupId>org.liquibase</groupId>
                 <artifactId>liquibase-maven-plugin</artifactId>
-                <version>3.4.1</version>
+                <version>${liquibase-maven-plugin.version}</version>
                 <configuration>
-                    <propertyFile>src/main/resources/liquibase.properties</propertyFile>
+                    <propertyFile>${liquibasePropertiesPath}</propertyFile>
                 </configuration>
                 <dependencies>
                     <dependency>
                         <groupId>org.liquibase.ext</groupId>
                         <artifactId>liquibase-hibernate4</artifactId>
-                        <version>3.5</version>
+                        <version>${liquibase-hibernate4.version}</version>
                     </dependency>
                     <dependency>
                         <groupId>org.springframework</groupId>
                         <artifactId>spring-beans</artifactId>
-                        <version>4.1.7.RELEASE</version>
+                        <version>${liquibase-spring-bean.version}</version>
                     </dependency>
                     <dependency>
                         <groupId>org.springframework.data</groupId>
                         <artifactId>spring-data-jpa</artifactId>
-                        <version>1.7.3.RELEASE</version>
+                        <version>${liquibase-spring-data-jpa.version}</version>
                     </dependency>
                 </dependencies>
             </plugin>
