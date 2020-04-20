@@ -7,7 +7,6 @@ import java.util.*
 import javax.persistence.*
 
 @Entity
-@Table(name = "user")
 data class UserEntity(
 
         @Id
