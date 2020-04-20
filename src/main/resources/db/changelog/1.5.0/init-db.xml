@@ -1,0 +1,124 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet author="Wojo (generated)" id="1587412421842-1">
+        <createSequence sequenceName="permission_id_seq"/>
+    </changeSet>
+    <changeSet author="Wojo (generated)" id="1587412421842-2">
+        <createSequence sequenceName="role_id_seq"/>
+    </changeSet>
+    <changeSet author="Wojo (generated)" id="1587412421842-3">
+        <createSequence sequenceName="role_permission_id_seq"/>
+    </changeSet>
+    <changeSet author="Wojo (generated)" id="1587412421842-4">
+        <createSequence sequenceName="user_entity_id_seq"/>
+    </changeSet>
+    <changeSet author="Wojo (generated)" id="1587412421842-5">
+        <createSequence sequenceName="user_role_id_seq"/>
+    </changeSet>
+    <changeSet author="Wojo (generated)" id="1587412421842-6">
+        <createSequence sequenceName="verification_token_id_seq"/>
+    </changeSet>
+    <changeSet author="Wojo (generated)" id="1587412421842-7">
+        <createTable tableName="permission">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="permission_pkey"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Wojo (generated)" id="1587412421842-8">
+        <createTable tableName="role">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="role_pkey"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Wojo (generated)" id="1587412421842-9">
+        <createTable tableName="role_permission">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="role_permission_pkey"/>
+            </column>
+            <column name="permission_id" type="BIGINT"/>
+            <column name="role_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Wojo (generated)" id="1587412421842-10">
+        <createTable tableName="user_entity">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="user_entity_pkey"/>
+            </column>
+            <column name="code" type="VARCHAR(40)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="create_time" type="TIMESTAMP(6) WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="email" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="password" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_status" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="username" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Wojo (generated)" id="1587412421842-11">
+        <createTable tableName="user_role">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="user_role_pkey"/>
+            </column>
+            <column name="user_code" type="VARCHAR(40)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="role_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Wojo (generated)" id="1587412421842-12">
+        <createTable tableName="verification_token">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="verification_token_pkey"/>
+            </column>
+            <column name="created_date" type="TIMESTAMP(6) WITHOUT TIME ZONE"/>
+            <column name="token" type="VARCHAR(255)"/>
+            <column name="user_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Wojo (generated)" id="1587412421842-13">
+        <addForeignKeyConstraint baseColumnNames="role_id" baseTableName="user_role"
+                                 constraintName="fka68196081fvovjhkek5m97n3y" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="id" referencedTableName="role"/>
+    </changeSet>
+    <changeSet author="Wojo (generated)" id="1587412421842-14">
+        <addForeignKeyConstraint baseColumnNames="role_id" baseTableName="role_permission"
+                                 constraintName="fka6jx8n8xkesmjmv6jqug6bg68" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="id" referencedTableName="role"/>
+    </changeSet>
+    <changeSet author="Wojo (generated)" id="1587412421842-15">
+        <addForeignKeyConstraint baseColumnNames="permission_id" baseTableName="role_permission"
+                                 constraintName="fkf8yllw1ecvwqy3ehyxawqa1qp" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="id" referencedTableName="permission"/>
+    </changeSet>
+    <changeSet author="Wojo (generated)" id="1587412421842-16">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="verification_token"
+                                 constraintName="fki2utwtvtm2e5l8d1a8dfj2tbf" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="id" referencedTableName="user_entity"/>
+    </changeSet>
+</databaseChangeLog>
