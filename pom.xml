@@ -27,7 +27,7 @@
         <liquibase-maven-plugin.version>3.4.1</liquibase-maven-plugin.version>
         <liquibase-hibernate4.version>3.5</liquibase-hibernate4.version>
         <liquibase-spring-bean.version>4.1.7.RELEASE</liquibase-spring-bean.version>
-        <liquibase-spring-data-jpa.version>1.7.3.RELEASE</liquibase-spring-data-jpa.version>
+        <liquibase-spring-data-jpa.version>1.11.23.RELEASE</liquibase-spring-data-jpa.version>
     </properties>
 
     <dependencies>
